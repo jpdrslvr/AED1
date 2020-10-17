@@ -29,7 +29,7 @@ void menu();
 void clearScreen();
 
 // declaração de variáveis
-char *pNomes;
+char *pNames;
 Control c;
 
 void main() {    
@@ -59,6 +59,7 @@ void main() {
             listNames();
             break;
         case 4:
+            free(pNames);
             exit(0);
             break;
         default:
@@ -80,73 +81,99 @@ void menu() {
 }
 
 void addName(){
-    char *pTemp = NULL, *tempName = NULL;
-
-    while(!tempName){
-        tempName = (char *) malloc(MAX);
-    }
+    // char *pTemp = NULL, *tempName = NULL;
+    char *pTemp = NULL, tempName[MAX];
 
     printf("Nome: ");
     fgets(tempName, MAX, stdin);
     tempName[strcspn(tempName, "\n")] = 0;
 
-    if(pNomes){
+    // alocação
+    if(pNames){
         while(!pTemp){
-            pTemp = (char *) realloc(pNomes, strlen(pNomes) + strlen(tempName) + 2); // + 2 -> \0 e separador
+            pTemp = (char *) realloc(pNames, strlen(pNames) + strlen(tempName) + 2); // + 2 -> \0 e separador
         }
-        pNomes = pTemp;
-        strcat(pNomes, tempName);
+        pNames = pTemp;
+        strcat(pNames, tempName);
     }
     else{
-        while(!pNomes)
-            pNomes = (char *) malloc(strlen(tempName) + 2);
-        strcat(pNomes, tempName);
+        while(!pNames)
+            pNames = (char *) malloc(strlen(tempName) + 2);
+        strcat(pNames, tempName);
     }
     
-    strcat(pNomes, "-"); // separador
+    strcat(pNames, "-"); // separador
     c.total++;
 
-    free(tempName);
 }
 
 void removeName(){
-    int toRemove, range[] = {-1, -1}, counter = 1, first = 0;
-    size_t size;
-    if(pNomes){
+    int toRemove, range[] = {-1, -1}, counter = 1, firstOrLast = 0;
+    char *pTemp = NULL;
+    size_t size, len;
+
+    if(pNames){
         listNames();
         printf("Remover: ");
         scanf("%d", &toRemove);
 
-        for (size_t i = 0; i < strlen(pNomes) - 1; i++){
-            if(*(pNomes + i) == '-'){
+        // não existe na agenda
+        if(toRemove > c.total){
+            printf("Não encontrado.\n");
+            return;
+        }
+
+        // agenda com só uma entrada
+        if(toRemove == 1 && c.total == 1){
+            free(pNames);
+            return;
+        }
+
+        // busca o início e fim da substring a ser removida
+        for (size_t i = 0; i < strlen(pNames) - 1; i++){
+            if(*(pNames + i) == '-'){
                 counter++;
             }
             if(counter == toRemove){
                 range[0] = i;
                 counter++;
             }
-            else if(counter > toRemove && *(pNomes + i) == '-'){
+            else if(counter > toRemove && *(pNames + i) == '-'){
                 range[1] = i;
                 break;
             }
         }
-        first = toRemove == 1 ? 1 : 0;
-        size = strlen(pNomes) - range[1] + 1;
-        memmove(pNomes + range[0], pNomes + range[1] + first, size);
-        if(toRemove == c.total) strcat(pNomes, "-");
+
+        // move os bytes do fim para o começo
+        firstOrLast = toRemove == 1 || toRemove == c.total;
+        if(toRemove == c.total){ // última substring
+            memmove(pNames + range[0], "-\0", 2);
+        }
+        else{ // outras
+            size = strlen(pNames) - range[1] + 1;
+            memmove(pNames + range[0], pNames + range[1] + firstOrLast, size);
+        }
+
         c.total--;
-        printf("%d removido.", toRemove);
+
+        // realoca pNames
+        // usa pTemp pra não perder a referência
+        len = strlen(pNames);
+        while(!(pTemp = realloc(pNames, strlen(pNames) + 1)));
+        pNames = pTemp;
+
+        printf("%d removido.\n", toRemove);
     }
     else
         printf("Agenda vazia.\n");
 }
 
 void listNames(){
-    if(pNomes){
-        for (size_t i = 0, counter = 1; i < strlen(pNomes) - 1; i++){
-            if(!i) printf("1: %c", *(pNomes));
-            else if(*(pNomes + i) == '-') printf("\n%ld: ", ++counter);
-            else printf("%c", *(pNomes + i));
+    if(pNames){
+        for (size_t i = 0, counter = 1; i < strlen(pNames) - 1; i++){
+            if(!i) printf("1: %c", *(pNames));
+            else if(*(pNames + i) == '-') printf("\n%ld: ", ++counter);
+            else printf("%c", *(pNames + i));
         }
         printf("\n");
     }
