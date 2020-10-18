@@ -52,9 +52,6 @@ void main(){
     c->total = 0;
     while(1){
         if(c->first){
-            // printf("%d", c->first);
-            // pBuffer = malloc(sizeof(Agenda));
-            // c = pBuffer;
             clearScreen();
             c->first = 0;
         }
@@ -68,7 +65,6 @@ void main(){
             break;
         case 2:
             clearScreen();
-            // printf("removeName();\n");
             removeContact(c);
             break;
         case 3:
@@ -166,7 +162,6 @@ void removeContact(Agenda *p){
                 p->pContacts = NULL;
             }
             else{
-                // printf("start: %s\tend: %s\n", p->start, p->end);
                 memmove(p->start, p->end + 1, strlen(p->end));
                 p->pTemp = NULL;
                 while(!(p->pTemp = realloc(p->pContacts, strlen(p->pContacts) + 1)));
