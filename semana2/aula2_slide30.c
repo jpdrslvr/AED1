@@ -91,12 +91,6 @@ int main(){
         case 6:
             if(matriz) liberaMatriz(matriz, m);
             exit(EXIT_SUCCESS);
-            break;
-        case 7:
-            clearScreen();
-            liberaMatriz(matriz, m);
-            matriz = NULL;
-            break;
         default:
             clearScreen();
             break;
@@ -181,7 +175,6 @@ void menu(){
     printf("4 Coluna\n");
     printf("5 Imprimir\n");
     printf("6 Sair\n");
-    printf("7 Free\n");
     printf("------------------------\n");
 }
 
