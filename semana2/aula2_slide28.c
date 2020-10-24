@@ -29,7 +29,6 @@ typedef struct{
 
 Pessoa *addPessoa(Pessoa *p, int size);
 void listPessoas(Pessoa *p, int size);
-void menu();
 void clearScreen();
 
 int main(){
