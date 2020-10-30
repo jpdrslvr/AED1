@@ -33,7 +33,7 @@ void menu();
 void clearScreen();
 
 int main(){
-    int option = -1, soma, ncoluna;
+    int option = -1, ncoluna;
     int m, n; // m linhas, n colunas
     int **matriz = NULL;
     while(1){
@@ -66,13 +66,8 @@ int main(){
             break;
         case 3:
             clearScreen();
-            if(!matriz){
-                printf("Criar/ler matriz primeiro.\n");
-            }
-            else{
-                soma = somaMatriz(matriz, m, n);
-                printf("Soma: %d\n", soma);
-            }
+            if(!matriz) printf("Criar/ler matriz primeiro.\n");
+            else printf("Soma: %d\n", somaMatriz(matriz, m, n));
             break;
         case 4:
             clearScreen();

@@ -12,28 +12,33 @@ void removeDups(float *arr, int *size);
 
 int main(){
     int n;
-    float *arr;
+    float *arr, j = 0;
 
     printf("n: ");
     scanf("%d", &n);
 
     arr = malloc(n * sizeof(float));
 
-    for (size_t i = 0; i < n; i++){
+    for (size_t i = 0; i < n; i++, j++){
         printf("[%ld] = ", i);
         scanf("%f", arr + i);
     }
-    
+   
     removeDups(arr, &n);
+
     printf("\nVetor resultante:\n");
     for (size_t i = 0; i < n; i++){
         printf("[%ld] = %.1f\n", i, *(arr + i));
     }
 
+    free(arr);
+
     return 0;
 }
 
 void removeDups(float *arr, int *size){
+    float *pTemp = NULL;
+
     for (int i = 0; i < *size; i++){
         for (int j = i + 1; j < *size; j++){
             if(*(arr + i) == *(arr + j)){
@@ -45,5 +50,8 @@ void removeDups(float *arr, int *size){
             }
         }
     }
-    arr = realloc(arr, *size * sizeof(float));
+    
+    pTemp = realloc(arr, *size * sizeof(float));
+    if(pTemp) arr = pTemp;
+    else printf("falha no realloc\n");
 }

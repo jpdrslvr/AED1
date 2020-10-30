@@ -26,5 +26,4 @@ void teste(){
     }
 
     *p = t + j + *g;
-    
 }
