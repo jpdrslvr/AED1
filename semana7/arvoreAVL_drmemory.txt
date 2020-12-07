@@ -1,0 +1,24 @@
+Dr. Memory version 2.3.0 build 1 built on Feb  6 2020 01:44:52
+Dr. Memory results for pid 84383: "prog"
+Recorded 17 suppression(s) from default /home/syhda/Documents/semestre_alternativo/AED_I/DrMemory-Linux-2.3.0-1/bin64/suppress-default.txt
+
+WARNING: application is missing line number information.
+
+===========================================================================
+FINAL SUMMARY:
+
+DUPLICATE ERROR COUNTS:
+
+SUPPRESSIONS USED:
+
+NO ERRORS FOUND:
+      0 unique,     0 total unaddressable access(es)
+      0 unique,     0 total uninitialized access(es)
+      0 unique,     0 total invalid heap argument(s)
+      0 unique,     0 total warning(s)
+      0 unique,     0 total,      0 byte(s) of leak(s)
+      0 unique,     0 total,      0 byte(s) of possible leak(s)
+ERRORS IGNORED:
+     15 unique,    18 total,   8778 byte(s) of still-reachable allocation(s)
+         (re-run with "-show_reachable" for details)
+Details: /home/syhda/Documents/semestre_alternativo/AED_I/DrMemory-Linux-2.3.0-1/drmemory/logs/DrMemory-prog.84383.000/results.txt
