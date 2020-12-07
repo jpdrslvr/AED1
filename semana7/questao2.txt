@@ -1,0 +1,10 @@
+2. É possível que uma inserção/remoção gere mais do que um rotação
+dupla? Explique
+
+Assumindo que antes da inserção a árvore está balanceada, ou seja, é uma árvore AVL válida,
+o máximo de rotações simples necessárias será 2 (uma simples ou uma dupla).
+No caso da remoção, é possível que após remover o nó e balancear a árvore, os nós antecessores
+do nó removido precisem ser balenceados. Logo, é possível acontecer mais de uma rotação dupla 
+pois é necessário percorrer a árvore até a raiz verificando o balanceamento.
+
+link para o git: https://github.com/jpdrslvr/AED1/tree/master/semana7
